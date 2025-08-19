@@ -5,6 +5,7 @@ import "./App.css";
 
 export default function App() {
   const [scrollY, setScrollY] = useState(0);
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +22,84 @@ export default function App() {
   
   // Calculate ticker visibility based on scroll position
   const tickerOpacity = Math.min(1, Math.max(0, (scrollY - 100) / 200)); // Start appearing at 100px, fully visible at 300px
+  
+  // Calculate highlighted work section visibility
+  const highlightedWorkOpacity = Math.min(1, Math.max(0, (scrollY - 600) / 200)); // Start appearing at 600px, fully visible at 800px
+
+  // Video data with calculated aspect ratios
+  const videoData = [
+    {
+      id: 1,
+      title: "Brand Campaign - Tech Startup",
+      thumbnail: "/thumbnails/169.png",
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      aspectRatio: "horizontal" // 3 vertical cards + gaps
+    },
+    {
+      id: 2,
+      title: "Product Launch - Mobile App",
+      thumbnail: "/thumbnails/916.png",
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      aspectRatio: "vertical" // 9:16 portrait
+    },
+    {
+      id: 3,
+      title: "Corporate Overview - Manufacturing",
+      thumbnail: "/thumbnails/169.png",
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      aspectRatio: "horizontal"
+    },
+    {
+      id: 4,
+      title: "Social Media - Lifestyle Brand",
+      thumbnail: "/thumbnails/916.png",
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      aspectRatio: "vertical"
+    },
+    {
+      id: 6,
+      title: "Behind the Scenes - Production",
+      thumbnail: "/thumbnails/916.png",
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      aspectRatio: "vertical"
+    },
+    {
+      id: 5,
+      title: "Event Coverage - Conference",
+      thumbnail: "/thumbnails/169.png",
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      aspectRatio: "horizontal"
+    },
+    {
+      id: 7,
+      title: "Commercial Spot - Automotive",
+      thumbnail: "/thumbnails/169.png",
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      aspectRatio: "horizontal"
+    },
+    {
+      id: 8,
+      title: "Music Video - Indie Artist",
+      thumbnail: "/thumbnails/916.png",
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      aspectRatio: "vertical"
+    },
+    {
+      id: 9,
+      title: "Documentary - Environmental",
+      thumbnail: "/thumbnails/169.png",
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      aspectRatio: "horizontal"
+    }
+  ];
+
+  const handleVideoClick = (video) => {
+    setSelectedVideo(video);
+  };
+
+  const closeVideo = () => {
+    setSelectedVideo(null);
+  };
 
   return (
     <main className="app" style={{ position: "relative", height: "100vh", width: "100vw" }}>
@@ -30,7 +109,7 @@ export default function App() {
         top: 0, 
         left: 0, 
         width: "100%", 
-        height: "200vh", 
+        height: "230vh", 
         zIndex: 1
       }}>
         <div style={{
@@ -54,6 +133,17 @@ export default function App() {
             distortion={0.00}
             className="background-rays"
           />
+          {/* Black gradient fade at the end */}
+          <div style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            width: "100%",
+            height: "30vh",
+            background: "linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1))",
+            pointerEvents: "none",
+            zIndex: 2
+          }} />
         </div>
       </div>
       
@@ -90,7 +180,7 @@ export default function App() {
         top: 0, 
         left: 0, 
         width: "100%", 
-        height: "200vh", 
+        height: "230vh", 
         zIndex: 3
       }}>
         <div style={{
@@ -114,6 +204,17 @@ export default function App() {
             distortion={0.00}
             className="custom-rays"
           />
+          {/* Black gradient fade at the end */}
+          <div style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            width: "100%",
+            height: "30vh",
+            background: "linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1))",
+            pointerEvents: "none",
+            zIndex: 4
+          }} />
         </div>
       </div>
       
@@ -244,6 +345,54 @@ export default function App() {
           </div>
         </div>
       </div>
+
+            {/* Highlighted Work Section */}
+      <div 
+        className="highlighted-work-section"
+        style={{
+          opacity: highlightedWorkOpacity,
+          transition: 'opacity 0.1s ease-out',
+          position: 'absolute',
+          top: '150vh', // Positioned on top of background
+          left: '0',
+          width: '100%',
+          height: '80vh', // Increased height for 3 rows
+          zIndex: 4
+        }}
+      >
+        <h2 className="section-heading">Our Work</h2>
+        <div className="video-grid">
+          {videoData.map((video) => (
+            <div 
+              key={video.id} 
+              className="video-thumbnail" 
+              data-aspect={video.aspectRatio}
+              onClick={() => handleVideoClick(video)}
+            >
+              <img src={video.thumbnail} alt={video.title} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Video Modal */}
+      {selectedVideo && (
+        <div className="video-modal-overlay" onClick={closeVideo}>
+          <div className="video-modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>{selectedVideo.title}</h2>
+            <div className="video-container">
+              <iframe
+                src={`${selectedVideo.videoUrl}?autoplay=1&mute=1&loop=1&playlist=${selectedVideo.videoUrl.split('/').pop()}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`}
+                title={selectedVideo.title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+            <button onClick={closeVideo}>Close</button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
