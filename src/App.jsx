@@ -274,7 +274,16 @@ export default function App() {
               <img src="/clientlogo_fc.png" alt="FC" />
             </div>
             <div className="ticker-item">
-              <img src="/clientlogo_fmc.png" alt="FMC" />
+              <img src="/clientlogo_jp.png" alt="JP" />
+            </div>
+            <div className="ticker-item">
+              <img src="/clientlogo_ofai.png" alt="OFAI" />
+            </div>
+            <div className="ticker-item">
+              <img src="/clientlogo_airtab.png" alt="Airtab" />
+            </div>
+            <div className="ticker-item">
+              <img src="/clientlogo_fc.png" alt="FC" />
             </div>
             <div className="ticker-item">
               <img src="/clientlogo_jp.png" alt="JP" />
@@ -289,9 +298,6 @@ export default function App() {
               <img src="/clientlogo_fc.png" alt="FC" />
             </div>
             <div className="ticker-item">
-              <img src="/clientlogo_fmc.png" alt="FMC" />
-            </div>
-            <div className="ticker-item">
               <img src="/clientlogo_jp.png" alt="JP" />
             </div>
             <div className="ticker-item">
@@ -304,9 +310,6 @@ export default function App() {
               <img src="/clientlogo_fc.png" alt="FC" />
             </div>
             <div className="ticker-item">
-              <img src="/clientlogo_fmc.png" alt="FMC" />
-            </div>
-            <div className="ticker-item">
               <img src="/clientlogo_jp.png" alt="JP" />
             </div>
             <div className="ticker-item">
@@ -317,24 +320,6 @@ export default function App() {
             </div>
             <div className="ticker-item">
               <img src="/clientlogo_fc.png" alt="FC" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_fmc.png" alt="FMC" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_jp.png" alt="JP" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_ofai.png" alt="OFAI" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_airtab.png" alt="Airtab" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_fc.png" alt="FC" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_fmc.png" alt="FMC" />
             </div>
             <div className="ticker-item">
               <img src="/clientlogo_jp.png" alt="JP" />
