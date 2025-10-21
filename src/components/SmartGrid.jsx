@@ -73,7 +73,8 @@ export default function SmartGrid({ videoData, className = '', disableHover = fa
         maxWidth: '100%',
         width: '100%',
         margin: '0 auto',
-        padding: '0 1rem'
+        padding: '0 1rem 0 1rem',
+        transform: 'translateX(-1rem)'
       }}
     >
       {/* Category Filter Buttons */}
@@ -84,7 +85,7 @@ export default function SmartGrid({ videoData, className = '', disableHover = fa
           justifyContent: 'center',
           gap: '0.5rem',
           marginBottom: '2rem',
-          padding: '0 1rem'
+          padding: '0'
         }}>
           {categories.map((category) => (
             <button

@@ -113,19 +113,19 @@ body::-webkit-scrollbar {
 /* Home page breakpoints */
 @media (max-width: 1200px) {
   .home {
-    min-height: 460vh;
+    min-height: 470vh;
   }
 }
 
 @media (max-width: 800px) {
   .home {
-    min-height: 490vh;
+    min-height: 510vh;
   }
 }
 
 @media (max-width: 550px) {
   .home {
-    min-height: 520vh;
+    min-height: 560vh;
   }
 }
 
@@ -292,7 +292,8 @@ body::-webkit-scrollbar {
   text-align: center;
   margin-bottom: 1.5rem;
   line-height: 1.6;
-  max-width: 600px;
+  max-width: 90vw;
+  box-sizing: border-box;
 }
 
 .services-description {
@@ -302,7 +303,8 @@ body::-webkit-scrollbar {
   text-align: left;
   margin-bottom: 1.5rem;
   line-height: 1.6;
-  max-width: none;
+  max-width: 90vw;
+  box-sizing: border-box;
 }
 
 .video-grid {
@@ -461,7 +463,7 @@ body::-webkit-scrollbar {
     height: 70vh;
     aspect-ratio: 9/17; /* Portrait aspect ratio for mobile */
     overflow: hidden;
-    top: 45% !important; /* Move video down to create gap from top */
+    top: calc(45% + 40vh) !important; /* Move video down to create gap from top + additional 40vh */
     transform: translate(-50%, -50%) !important;
   }
   
@@ -572,7 +574,7 @@ body::-webkit-scrollbar {
     border-radius: 15px;
     aspect-ratio: 9/16; /* Portrait aspect ratio for mobile */
     overflow: hidden;
-    top: 5% !important; /* Move video down to create gap from top on smaller mobile */
+    top: calc(5% + 40vh) !important; /* Move video down to create gap from top on smaller mobile + additional 40vh */
     transform: translate(-50%, -50%) !important;
   }
   
@@ -651,8 +653,10 @@ body::-webkit-scrollbar {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding: 0 8vw;
+  padding: 0 4vw;
   text-align: left;
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 
 .services-heading {
@@ -670,9 +674,11 @@ body::-webkit-scrollbar {
   position: relative;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 0 8vw 0 8vw; /* Add horizontal padding to match heading */
+  padding: 0 2vw 0 2vw; /* Reduced padding to prevent overflow */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 
 .services-carousel::-webkit-scrollbar {
@@ -717,6 +723,8 @@ body::-webkit-scrollbar {
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.5;
   margin: 0;
+  max-width: 90vw;
+  box-sizing: border-box;
 }
 
 
