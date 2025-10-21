@@ -55,26 +55,29 @@ export default function Portfolio() {
 
   return (
     <div className="portfolio-page" style={{
-      width: '100vw',
+      width: '100%',
+      maxWidth: '100vw',
       minHeight: 'auto',
       background: '#000000',
       paddingTop: '80px', // Account for fixed navbar
       paddingBottom: '2rem', // Add some bottom padding
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center'
+      alignItems: 'center',
+      overflow: 'hidden'
     }}>
 
       {/* Portfolio Content */}
       <div className="portfolio-content" style={{
         width: '100%',
-        maxWidth: '1200px',
+        maxWidth: '90vw',
         padding: '2rem 1rem',
         margin: '0 auto',
         zIndex: 2,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        boxSizing: 'border-box'
       }}>
         <h1 className="portfolio-title" style={{
           fontFamily: 'Georgia, serif',
@@ -95,9 +98,10 @@ export default function Portfolio() {
           color: 'rgba(255, 255, 255, 0.8)',
           textAlign: 'center',
           marginBottom: '3rem',
-          maxWidth: '600px',
+          maxWidth: '90vw',
           width: '100%',
-          padding: '0 1rem'
+          padding: '0',
+          boxSizing: 'border-box'
         }}>
           Explore our collection of high-performing brand videos and social media content.
         </p>
