@@ -105,7 +105,7 @@ body::-webkit-scrollbar {
   display: none; /* WebKit browsers (Chrome, Safari, Edge) */
 }
 .home { 
-  min-height: 420vh; /* Default min-height */
+  min-height: 430vh; /* Default min-height */
   background: #000000; 
   position: relative; 
 }
@@ -113,19 +113,19 @@ body::-webkit-scrollbar {
 /* Home page breakpoints */
 @media (max-width: 1200px) {
   .home {
-    min-height: 450vh;
+    min-height: 460vh;
   }
 }
 
 @media (max-width: 800px) {
   .home {
-    min-height: 480vh;
+    min-height: 490vh;
   }
 }
 
 @media (max-width: 550px) {
   .home {
-    min-height: 510vh;
+    min-height: 520vh;
   }
 }
 
