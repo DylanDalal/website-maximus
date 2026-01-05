@@ -7,6 +7,8 @@ import "./App.css";
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
+  const [videoFadeIn, setVideoFadeIn] = useState(0);
+  const [fadeInComplete, setFadeInComplete] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,8 +19,27 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Calculate fade values based on scroll position
-  const videoOpacity = Math.max(0, 1 - (scrollY / 300)); // Fade out over 300px
+  // Fade in video on page load over 1.5 seconds
+  useEffect(() => {
+    const fadeInDuration = 1500; // 1.5 seconds
+    const startTime = Date.now();
+    
+    const fadeInInterval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / fadeInDuration, 1);
+      setVideoFadeIn(progress);
+      
+      if (progress >= 1) {
+        setFadeInComplete(true);
+        clearInterval(fadeInInterval);
+      }
+    }, 16); // ~60fps
+    
+    return () => clearInterval(fadeInInterval);
+  }, []);
+
+  // Calculate fade values based on scroll position and page load fade-in
+  const videoOpacity = Math.max(0, (1 - (scrollY / 300)) * videoFadeIn); // Fade out over 300px, but also respect fade-in
   const scrollTextOpacity = Math.max(0, 1 - (scrollY / 200)); // Fade out over 200px
   
   // Calculate ticker visibility based on scroll position
@@ -177,11 +198,11 @@ export default function Home() {
           className="video-container"
           style={{
             opacity: videoOpacity,
-            transition: 'opacity 0.1s ease-out'
+            transition: fadeInComplete ? 'opacity 0.1s ease-out' : 'opacity 1.5s ease-in'
           }}
         >
           <iframe
-            src="https://www.youtube.com/embed/Kq8MBfpi8CM?autoplay=1&mute=1&loop=1&playlist=Kq8MBfpi8CM&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+            src="https://www.youtube.com/embed/0wZx9gpywJ0?autoplay=1&mute=1&loop=1&playlist=0wZx9gpywJ0&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
             title="Background Video"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -300,19 +321,10 @@ export default function Home() {
               <img src="/clientlogo_ofai.png" alt="OFAI" />
             </div>
             <div className="ticker-item">
-              <img src="/clientlogo_airtab.png" alt="Airtab" />
+              <img src="/clientlogo_lisbeth.png" alt="Lisbeth" />
             </div>
             <div className="ticker-item">
-              <img src="/clientlogo_fc.png" alt="FC" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_fmc.png" alt="FMC" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_jp.png" alt="JP" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_ofai.png" alt="OFAI" />
+              <img src="/clientlogo_tipt.webp" alt="Tipt" />
             </div>
             <div className="ticker-item">
               <img src="/clientlogo_airtab.png" alt="Airtab" />
@@ -330,6 +342,12 @@ export default function Home() {
               <img src="/clientlogo_ofai.png" alt="OFAI" />
             </div>
             <div className="ticker-item">
+              <img src="/clientlogo_lisbeth.png" alt="Lisbeth" />
+            </div>
+            <div className="ticker-item">
+              <img src="/clientlogo_tipt.webp" alt="Tipt" />
+            </div>
+            <div className="ticker-item">
               <img src="/clientlogo_airtab.png" alt="Airtab" />
             </div>
             <div className="ticker-item">
@@ -343,6 +361,33 @@ export default function Home() {
             </div>
             <div className="ticker-item">
               <img src="/clientlogo_ofai.png" alt="OFAI" />
+            </div>
+            <div className="ticker-item">
+              <img src="/clientlogo_lisbeth.png" alt="Lisbeth" />
+            </div>
+            <div className="ticker-item">
+              <img src="/clientlogo_tipt.webp" alt="Tipt" />
+            </div>
+            <div className="ticker-item">
+              <img src="/clientlogo_airtab.png" alt="Airtab" />
+            </div>
+            <div className="ticker-item">
+              <img src="/clientlogo_fc.png" alt="FC" />
+            </div>
+            <div className="ticker-item">
+              <img src="/clientlogo_fmc.png" alt="FMC" />
+            </div>
+            <div className="ticker-item">
+              <img src="/clientlogo_jp.png" alt="JP" />
+            </div>
+            <div className="ticker-item">
+              <img src="/clientlogo_ofai.png" alt="OFAI" />
+            </div>
+            <div className="ticker-item">
+              <img src="/clientlogo_lisbeth.png" alt="Lisbeth" />
+            </div>
+            <div className="ticker-item">
+              <img src="/clientlogo_tipt.webp" alt="Tipt" />
             </div>
             <div className="ticker-item">
               <img src="/clientlogo_airtab.png" alt="Airtab" />

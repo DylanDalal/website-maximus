@@ -35,11 +35,12 @@ export default function Portfolio() {
     // Ad
     { id: 21, title: "Ad 1", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/qQgWRWEiCQM", aspectRatio: "horizontal", category: "Ad" },
     { id: 22, title: "Ad 2", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/briKVzcxssA", aspectRatio: "horizontal", category: "Ad" },
-    { id: 23, title: "Ad 3", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/I2ZsQ1wmPYY", aspectRatio: "horizontal", category: "Ad" },
+    { id: 23, title: "Ad 3", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/4hzdqTxiRss", aspectRatio: "horizontal", category: "Ad" },
     { id: 24, title: "Ad Short 1", thumbnail: "/thumbnails/916.png", videoUrl: "https://www.youtube.com/embed/nVObwK_ISG8", aspectRatio: "vertical", category: "Ad" },
     { id: 25, title: "Ad Short 2", thumbnail: "/thumbnails/916.png", videoUrl: "https://www.youtube.com/embed/7MTAqe8iidg", aspectRatio: "vertical", category: "Ad" },
     { id: 26, title: "Ad Short 3", thumbnail: "/thumbnails/916.png", videoUrl: "https://www.youtube.com/embed/ERql6lur9yQ", aspectRatio: "vertical", category: "Ad" },
     { id: 27, title: "Ad Short 4", thumbnail: "/thumbnails/916.png", videoUrl: "https://www.youtube.com/embed/Bhq3JjhCG-k", aspectRatio: "vertical", category: "Ad" },
+    { id: 33, title: "Ad 4", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/sfXZT0dHuuc", aspectRatio: "horizontal", category: "Ad" },
     
     // Short Film
     { id: 28, title: "Short Film 1", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/klEVBSD7k84", aspectRatio: "horizontal", category: "Short Film" },
@@ -55,29 +56,26 @@ export default function Portfolio() {
 
   return (
     <div className="portfolio-page" style={{
-      width: '100%',
-      maxWidth: '100vw',
+      width: '100vw',
       minHeight: 'auto',
       background: '#000000',
       paddingTop: '80px', // Account for fixed navbar
       paddingBottom: '2rem', // Add some bottom padding
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
-      overflow: 'hidden'
+      alignItems: 'center'
     }}>
 
       {/* Portfolio Content */}
       <div className="portfolio-content" style={{
         width: '100%',
-        maxWidth: '90vw',
+        maxWidth: '1200px',
         padding: '2rem 1rem',
         margin: '0 auto',
         zIndex: 2,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-        boxSizing: 'border-box'
+        alignItems: 'center'
       }}>
         <h1 className="portfolio-title" style={{
           fontFamily: 'Georgia, serif',
@@ -98,10 +96,9 @@ export default function Portfolio() {
           color: 'rgba(255, 255, 255, 0.8)',
           textAlign: 'center',
           marginBottom: '3rem',
-          maxWidth: '90vw',
+          maxWidth: '600px',
           width: '100%',
-          padding: '0',
-          boxSizing: 'border-box'
+          padding: '0 1rem'
         }}>
           Explore our collection of high-performing brand videos and social media content.
         </p>
