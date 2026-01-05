@@ -7,8 +7,8 @@ import "./App.css";
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
-  const [videoFadeIn, setVideoFadeIn] = useState(0);
-  const [fadeInComplete, setFadeInComplete] = useState(false);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,27 +19,35 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Fade in video on page load over 1.5 seconds
+  // Update elapsed time for fade-in calculation after video loads
+  // Sequence: video loads -> 500ms delay -> 1.5s fade-in
   useEffect(() => {
-    const fadeInDuration = 1500; // 1.5 seconds
+    if (!videoLoaded) return;
+
     const startTime = Date.now();
-    
-    const fadeInInterval = setInterval(() => {
+    const interval = setInterval(() => {
       const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / fadeInDuration, 1);
-      setVideoFadeIn(progress);
-      
-      if (progress >= 1) {
-        setFadeInComplete(true);
-        clearInterval(fadeInInterval);
+      setElapsedTime(elapsed);
+      // Stop updating after fade-in is complete (500ms delay + 1.5 seconds fade-in = 2000ms)
+      if (elapsed >= 2000) {
+        clearInterval(interval);
+        setElapsedTime(2000); // Set to max to ensure it stays at 1
       }
     }, 16); // ~60fps
     
-    return () => clearInterval(fadeInInterval);
-  }, []);
+    return () => clearInterval(interval);
+  }, [videoLoaded]);
+
+  // Calculate fade-in based on elapsed time with 500ms delay, then fade in over 1.5 seconds
+  // Similar pattern to scroll fade-out: delay first, then fade in
+  const fadeInDelay = 100; // 0.5 second delay
+  const fadeInDuration = 1500; // 1.5 seconds fade-in
+  const fadeInProgress = elapsedTime < fadeInDelay 
+    ? 0 
+    : Math.min(1, (elapsedTime - fadeInDelay) / fadeInDuration); // Delay 500ms, then fade in over 1.5 seconds
 
   // Calculate fade values based on scroll position and page load fade-in
-  const videoOpacity = Math.max(0, (1 - (scrollY / 300)) * videoFadeIn); // Fade out over 300px, but also respect fade-in
+  const videoOpacity = Math.max(0, (1 - (scrollY / 300)) * fadeInProgress); // Fade out over 300px, but also respect fade-in
   const scrollTextOpacity = Math.max(0, 1 - (scrollY / 200)); // Fade out over 200px
   
   // Calculate ticker visibility based on scroll position
@@ -198,16 +206,17 @@ export default function Home() {
           className="video-container"
           style={{
             opacity: videoOpacity,
-            transition: fadeInComplete ? 'opacity 0.1s ease-out' : 'opacity 1.5s ease-in'
+            transition: 'opacity 0.1s ease-out'
           }}
         >
           <iframe
-            src="https://www.youtube.com/embed/0wZx9gpywJ0?autoplay=1&mute=1&loop=1&playlist=0wZx9gpywJ0&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+            src="https://www.youtube-nocookie.com/embed/0wZx9gpywJ0?autoplay=1&mute=1&loop=1&playlist=0wZx9gpywJ0&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&cc_load_policy=0&fs=0&disablekb=1&enablejsapi=0&start=0"
             title="Background Video"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
+            allowFullScreen={false}
             className="background-video"
+            onLoad={() => setVideoLoaded(true)}
           ></iframe>
         </div>
       </div>
