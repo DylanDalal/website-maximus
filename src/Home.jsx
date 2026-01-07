@@ -10,6 +10,56 @@ export default function Home() {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
 
+  // Logo to URL mapping
+  const logoUrls = {
+    '/clientlogo_flg.png': 'https://www.liquid8rs.com',
+    '/clientlogo_tipt.webp': 'https://www.tipt.co',
+    '/clientlogo_ofai.png': 'https://www.openforanicon.com',
+    '/clientlogo_airtab.png': 'https://www.airtabmedia.com',
+    '/clientlogo_jp.png': 'https://www.jacksonproperties.com',
+    '/clientlogo_fc.png': 'https://www.floridacavernsrvresort.com',
+    '/clientlogo_lisbeth.png': 'https://www.etsy.com/shop/LisBETHSilk',
+    '/clientlogo_fmc.png': 'https://www.etsy.com/shop/LisBETHSilk'
+  };
+
+  // Helper function to render a ticker item
+  const renderTickerItem = (logoPath, index) => {
+    const url = logoUrls[logoPath];
+    const alt = logoPath.split('_')[1]?.split('.')[0] || 'Client';
+    return (
+      <div key={index} className="ticker-item">
+        <a 
+          href={url} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            width: '100%',
+            height: '100%',
+            textDecoration: 'none'
+          }}
+        >
+          <img src={logoPath} alt={alt} />
+        </a>
+      </div>
+    );
+  };
+
+  // Array of logos for the ticker (repeated 4 times for seamless loop)
+  const tickerLogos = [
+    '/clientlogo_airtab.png',
+    '/clientlogo_fc.png',
+    '/clientlogo_fmc.png',
+    '/clientlogo_jp.png',
+    '/clientlogo_ofai.png',
+    '/clientlogo_lisbeth.png',
+    '/clientlogo_tipt.webp',
+    '/clientlogo_flg.png'
+  ];
+  const tickerLogosRepeated = [...tickerLogos, ...tickerLogos, ...tickerLogos, ...tickerLogos];
+
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
@@ -28,26 +78,27 @@ export default function Home() {
     const interval = setInterval(() => {
       const elapsed = Date.now() - startTime;
       setElapsedTime(elapsed);
-      // Stop updating after fade-in is complete (500ms delay + 1.5 seconds fade-in = 2000ms)
-      if (elapsed >= 2000) {
+      // Stop updating after fade-in is complete (50ms delay + 500ms fade-in = 550ms)
+      if (elapsed >= 550) {
         clearInterval(interval);
-        setElapsedTime(2000); // Set to max to ensure it stays at 1
+        setElapsedTime(550); // Set to max to ensure it stays at 1
       }
     }, 16); // ~60fps
     
     return () => clearInterval(interval);
   }, [videoLoaded]);
 
-  // Calculate fade-in based on elapsed time with 500ms delay, then fade in over 1.5 seconds
+  // Calculate fade-in based on elapsed time with reduced delay, then faster fade in
   // Similar pattern to scroll fade-out: delay first, then fade in
-  const fadeInDelay = 100; // 0.5 second delay
-  const fadeInDuration = 1500; // 1.5 seconds fade-in
+  const fadeInDelay = 50; // Reduced delay
+  const fadeInDuration = 500; // Reduced fade-in duration for faster appearance
   const fadeInProgress = elapsedTime < fadeInDelay 
     ? 0 
-    : Math.min(1, (elapsedTime - fadeInDelay) / fadeInDuration); // Delay 500ms, then fade in over 1.5 seconds
+    : Math.min(1, (elapsedTime - fadeInDelay) / fadeInDuration); // Faster fade-in
 
   // Calculate fade values based on scroll position and page load fade-in
   const videoOpacity = Math.max(0, (1 - (scrollY / 300)) * fadeInProgress); // Fade out over 300px, but also respect fade-in
+  const logo2Opacity = 1 - videoOpacity; // Logo2 fades inversely to video
   const scrollTextOpacity = Math.max(0, 1 - (scrollY / 200)); // Fade out over 200px
   
   // Calculate ticker visibility based on scroll position
@@ -210,7 +261,7 @@ export default function Home() {
           }}
         >
           <iframe
-            src="https://www.youtube-nocookie.com/embed/0wZx9gpywJ0?autoplay=1&mute=1&loop=1&playlist=0wZx9gpywJ0&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&cc_load_policy=0&fs=0&disablekb=1&enablejsapi=0&start=0"
+            src="https://www.youtube-nocookie.com/embed/FUl4lWiRl9I?autoplay=1&mute=1&loop=1&playlist=FUl4lWiRl9I&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&cc_load_policy=0&fs=0&disablekb=1&enablejsapi=0&start=0"
             title="Background Video"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -275,11 +326,43 @@ export default function Home() {
         zIndex: 4
       }}>
         <div className="logo-container">
-          <img 
-            src="/Logo2.png" 
-            alt="Logo" 
-            className="logo"
-          />
+          <div style={{ position: 'relative', display: 'inline-block', maxWidth: '100%', marginBottom: '10vh', verticalAlign: 'top' }}>
+            <img 
+              src="/Logo3.png" 
+              alt="Logo Base" 
+              className="logo"
+              style={{
+                position: 'relative',
+                display: 'block',
+                marginBottom: 0,
+                width: '100%',
+                height: 'auto',
+                zIndex: 1,
+                opacity: 1,
+                blendMode: 'screen'
+              }}
+            />
+            <img 
+              src="/Logo2.png" 
+              alt="Logo Overlay" 
+              className="logo logo-overlay"
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                objectPosition: 'top left',
+                pointerEvents: 'none',
+                marginBottom: 0,
+                marginTop: 0,
+                zIndex: 2,
+                opacity: logo2Opacity,
+                transition: 'opacity 0.1s ease-out'
+              }}
+            />
+          </div>
         </div>
       </div>
       <div className="content-container" style={{opacity: scrollTextOpacity, transition: 'opacity 0.15s ease-out'}}>
@@ -308,111 +391,14 @@ export default function Home() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          zIndex: 2
+          zIndex: 10,
+          pointerEvents: 'auto'
         }}
       >
         <h2 className="ticker-header">Trusted by professionals at</h2>
         <div className="ticker-container">
           <div className="ticker-track">
-            <div className="ticker-item">
-              <img src="/clientlogo_airtab.png" alt="Airtab" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_fc.png" alt="FC" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_fmc.png" alt="FMC" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_jp.png" alt="JP" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_ofai.png" alt="OFAI" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_lisbeth.png" alt="Lisbeth" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_tipt.webp" alt="Tipt" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_airtab.png" alt="Airtab" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_fc.png" alt="FC" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_fmc.png" alt="FMC" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_jp.png" alt="JP" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_ofai.png" alt="OFAI" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_lisbeth.png" alt="Lisbeth" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_tipt.webp" alt="Tipt" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_airtab.png" alt="Airtab" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_fc.png" alt="FC" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_fmc.png" alt="FMC" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_jp.png" alt="JP" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_ofai.png" alt="OFAI" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_lisbeth.png" alt="Lisbeth" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_tipt.webp" alt="Tipt" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_airtab.png" alt="Airtab" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_fc.png" alt="FC" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_fmc.png" alt="FMC" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_jp.png" alt="JP" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_ofai.png" alt="OFAI" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_lisbeth.png" alt="Lisbeth" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_tipt.webp" alt="Tipt" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_airtab.png" alt="Airtab" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_fc.png" alt="FC" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_fmc.png" alt="FMC" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_jp.png" alt="JP" />
-            </div>
-            <div className="ticker-item">
-              <img src="/clientlogo_ofai.png" alt="OFAI" />
-            </div>
+            {tickerLogosRepeated.map((logoPath, index) => renderTickerItem(logoPath, index))}
           </div>
         </div>
       </div>

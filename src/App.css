@@ -218,13 +218,15 @@ body::-webkit-scrollbar {
   overflow: hidden;
   position: relative;
   height: fit-content;
+  pointer-events: auto;
 }
 
 .ticker-track {
   display: flex;
   align-items: center;
-  animation: ticker-scroll 40s linear infinite;
+  animation: ticker-scroll 70s linear infinite;
   width: max-content;
+  pointer-events: auto;
 }
 
 .ticker-item {
@@ -235,6 +237,16 @@ body::-webkit-scrollbar {
   justify-content: center;
   height: 10vh;
   width: auto;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.ticker-item a {
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 2;
+  position: relative;
 }
 
 .ticker-item img {
@@ -246,7 +258,7 @@ body::-webkit-scrollbar {
   transition: opacity 0.3s ease;
 }
 
-.ticker-item img:hover {
+.ticker-item:hover img {
   opacity: 1;
 }
 
