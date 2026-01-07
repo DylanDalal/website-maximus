@@ -19,7 +19,7 @@ export default function Home() {
     '/clientlogo_jp.png': 'https://www.jacksonproperties.com',
     '/clientlogo_fc.png': 'https://www.floridacavernsrvresort.com',
     '/clientlogo_lisbeth.png': 'https://www.etsy.com/shop/LisBETHSilk',
-    '/clientlogo_fmc.png': 'https://www.etsy.com/shop/LisBETHSilk'
+    '/clientlogo_fmc.png': 'https://www.fendermarine.com/'
   };
 
   // Helper function to render a ticker item
