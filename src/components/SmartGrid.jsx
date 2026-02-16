@@ -164,7 +164,9 @@ export default function SmartGrid({ videoData, className = '', disableHover = fa
                 style={{
                   width: '100%',
                   height: '100%',
-                  backgroundImage: `url(https://img.youtube.com/vi/${video.videoUrl.split('/').pop()}/maxresdefault.jpg)`,
+                  backgroundImage: video.thumbnail && !['/thumbnails/169.png', '/thumbnails/916.png'].includes(video.thumbnail)
+                    ? `url(${video.thumbnail})`
+                    : `url(https://img.youtube.com/vi/${video.videoUrl.split('/').pop()}/maxresdefault.jpg)`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   borderRadius: '8px',
