@@ -47,7 +47,11 @@ export default function Portfolio() {
     { id: 29, title: "Short Film 2", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/dCT-SM94qFo", aspectRatio: "horizontal", category: "Short Film" },
     { id: 30, title: "Short Film 3", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/x6IZ6bCGbMg", aspectRatio: "horizontal", category: "Short Film" },
     { id: 31, title: "Short Film 4", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/QFIvwBPdVFc", aspectRatio: "horizontal", category: "Short Film" },
-    { id: 32, title: "Short Film 5", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/1OaWBCMEDjE", aspectRatio: "horizontal", category: "Short Film" }
+    { id: 32, title: "Short Film 5", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/1OaWBCMEDjE", aspectRatio: "horizontal", category: "Short Film" },
+
+    // Internal / Corporate
+    { id: 34, title: "Clip Money - \"ATM Deposits, Powered by Clip\" [Internal] [Extended]", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/kJ6t7AdagsU", aspectRatio: "horizontal", category: "Internal / Corporate" },
+    { id: 35, title: "Clip Money - \"ATM Deposits, Powered by Clip\" [Internal]", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/RQKMtyFeLNU", aspectRatio: "horizontal", category: "Internal / Corporate" }
   ];
 
   // Randomize the order

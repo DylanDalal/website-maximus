@@ -16,6 +16,7 @@ export default function Home() {
     '/clientlogo_tipt.webp': 'https://www.tipt.co',
     '/clientlogo_ofai.png': 'https://www.openforanicon.com',
     '/clientlogo_airtab.png': 'https://www.airtabmedia.com',
+    '/clientlogo_clip.png': 'https://clipmoney.com/',
     '/clientlogo_jp.png': 'https://www.jacksonproperties.com',
     '/clientlogo_fc.png': 'https://www.floridacavernsrvresort.com',
     '/clientlogo_lisbeth.png': 'https://www.etsy.com/shop/LisBETHSilk',
@@ -50,6 +51,7 @@ export default function Home() {
   // Array of logos for the ticker (repeated 4 times for seamless loop)
   const tickerLogos = [
     '/clientlogo_airtab.png',
+    '/clientlogo_clip.png',
     '/clientlogo_fc.png',
     '/clientlogo_fmc.png',
     '/clientlogo_jp.png',
@@ -261,8 +263,8 @@ export default function Home() {
           }}
         >
           <iframe
-            src="https://www.youtube-nocookie.com/embed/FUl4lWiRl9I?autoplay=1&mute=1&loop=1&playlist=FUl4lWiRl9I&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&cc_load_policy=0&fs=0&disablekb=1&enablejsapi=0&start=0"
-            title="Background Video"
+            src="https://www.youtube-nocookie.com/embed/kJ6t7AdagsU?autoplay=1&mute=1&loop=1&playlist=kJ6t7AdagsU&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&cc_load_policy=0&fs=0&disablekb=1&enablejsapi=0&start=0"
+            title="Clip Money - ATM Deposits, Powered by Clip"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen={false}
