@@ -119,7 +119,7 @@ export default function SmartGrid({ videoData, className = '', disableHover = fa
                 }
               }}
             >
-              {category === 'All' ? 'All' : category + 's'}
+              {category === 'All' ? 'All' : category === 'Internal / Corporate' ? category : category + 's'}
             </button>
           ))}
         </div>

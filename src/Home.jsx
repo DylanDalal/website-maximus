@@ -113,11 +113,11 @@ export default function Home() {
   const videoData = [
     {
       id: 1,
-      title: "Brand Campaign - Tech Startup",
+      title: "Clip Money - \"ATM Deposits, Powered by Clip\" [Internal] [Extended]",
       thumbnail: "/thumbnails/169.png",
-      videoUrl: "https://www.youtube.com/embed/DJArpjLktqg",
+      videoUrl: "https://www.youtube.com/embed/kJ6t7AdagsU",
       aspectRatio: "horizontal",
-      category: "Website Banner"
+      category: "Internal / Corporate"
     },
     {
       id: 2,
@@ -263,8 +263,8 @@ export default function Home() {
           }}
         >
           <iframe
-            src="https://www.youtube-nocookie.com/embed/kJ6t7AdagsU?autoplay=1&mute=1&loop=1&playlist=kJ6t7AdagsU&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&cc_load_policy=0&fs=0&disablekb=1&enablejsapi=0&start=0"
-            title="Clip Money - ATM Deposits, Powered by Clip"
+            src="https://www.youtube-nocookie.com/embed/FUl4lWiRl9I?autoplay=1&mute=1&loop=1&playlist=FUl4lWiRl9I&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&cc_load_policy=0&fs=0&disablekb=1&enablejsapi=0&start=0"
+            title="Background Video"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen={false}
