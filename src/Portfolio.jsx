@@ -51,8 +51,8 @@ export default function Portfolio() {
     { id: 36, title: "RIPB", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/AU0ZgsJKHDU", aspectRatio: "horizontal", category: "Short Film" },
 
     // Internal / Corporate
-    { id: 34, title: "Clip Money - \"ATM Deposits, Powered by Clip\" [Internal] [Extended]", thumbnail: "/thumbnails/clip2.jpg", videoUrl: "https://www.youtube.com/embed/CqFN-btqG7M", aspectRatio: "horizontal", category: "Internal / Corporate" },
-    { id: 35, title: "Clip Money - \"ATM Deposits, Powered by Clip\" [Internal]", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/RQKMtyFeLNU", aspectRatio: "horizontal", category: "Internal / Corporate" }
+    { id: 34, title: "Clip Money - \"ATM Deposits, Powered by Clip\" [Internal] [Extended]", thumbnail: "/thumbnails/clip2.jpg", videoUrl: "https://www.youtube.com/embed/1Cn0QLVzhJw", aspectRatio: "horizontal", category: "Internal / Corporate" },
+    { id: 35, title: "Clip Money - \"ATM Deposits, Powered by Clip\" [Internal]", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/CqFN-btqG7", aspectRatio: "horizontal", category: "Internal / Corporate" }
   ];
 
   // Randomize the order
