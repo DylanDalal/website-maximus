@@ -9,6 +9,7 @@ export default function Home() {
   const [scrollY, setScrollY] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [logoFadeElapsed, setLogoFadeElapsed] = useState(0);
 
   // Logo to URL mapping
   const logoUrls = {
@@ -90,6 +91,22 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [videoLoaded]);
 
+  // Time-based fade for the frontmost logo: 5s delay, then 15s fade to 50% opacity
+  useEffect(() => {
+    const startTime = Date.now();
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      setLogoFadeElapsed(elapsed);
+      // Stop updating after total duration (5s delay + 15s fade = 20s)
+      if (elapsed >= 20000) {
+        clearInterval(interval);
+        setLogoFadeElapsed(20000);
+      }
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, []);
+
   // Calculate fade-in based on elapsed time with reduced delay, then faster fade in
   // Similar pattern to scroll fade-out: delay first, then fade in
   const fadeInDelay = 50; // Reduced delay
@@ -100,7 +117,14 @@ export default function Home() {
 
   // Calculate fade values based on scroll position and page load fade-in
   const videoOpacity = Math.max(0, (1 - (scrollY / 300)) * fadeInProgress); // Fade out over 300px, but also respect fade-in
-  const logo2Opacity = 1 - videoOpacity; // Logo2 fades inversely to video
+  const logoFadeDelay = 5000; // 5 second delay before starting logo fade
+  const logoFadeDuration = 15000; // 15 seconds to reach 50% opacity
+  const logoFadeProgress = logoFadeElapsed < logoFadeDelay
+    ? 0
+    : Math.min(1, (logoFadeElapsed - logoFadeDelay) / logoFadeDuration);
+  const logoFadeFactor = 1 - 0.5 * logoFadeProgress; // 1 -> 0.5 over duration
+  const baseLogo2Opacity = 1 - videoOpacity; // Logo2 fades inversely to video
+  const logo2Opacity = baseLogo2Opacity * logoFadeFactor; // Apply time-based fade on top
   const scrollTextOpacity = Math.max(0, 1 - (scrollY / 200)); // Fade out over 200px
   
   // Calculate ticker visibility based on scroll position
