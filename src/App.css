@@ -308,7 +308,7 @@ body::-webkit-scrollbar {
   text-align: left;
   margin-bottom: 1.5rem;
   line-height: 1.6;
-  max-width: 90vw;
+  width: 80vw;
   box-sizing: border-box;
 }
 
@@ -656,9 +656,9 @@ body::-webkit-scrollbar {
 .services-section {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 0 4vw;
+  padding: 0;
   text-align: left;
   max-width: 100vw;
   box-sizing: border-box;
@@ -672,45 +672,104 @@ body::-webkit-scrollbar {
   margin-bottom: 0rem;
   letter-spacing: 2px;
   text-align: left;
+  width: 80vw;
+}
+
+@property --border-angle-1 {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@property --border-angle-2 {
+  syntax: "<angle>";
+  initial-value: 90deg;
+  inherits: false;
+}
+@property --border-angle-3 {
+  syntax: "<angle>";
+  initial-value: 180deg;
+  inherits: false;
+}
+@property --border-angle-4 {
+  syntax: "<angle>";
+  initial-value: 270deg;
+  inherits: false;
+}
+
+@keyframes border-shimmer-1 {
+  to { --border-angle-1: 360deg; }
+}
+@keyframes border-shimmer-2 {
+  to { --border-angle-2: 450deg; }
+}
+@keyframes border-shimmer-3 {
+  to { --border-angle-3: 540deg; }
+}
+@keyframes border-shimmer-4 {
+  to { --border-angle-4: 630deg; }
 }
 
 .services-carousel {
-  width: 100%;
-  position: relative;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 0 2vw 0 2vw; /* Reduced padding to prevent overflow */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  max-width: 100vw;
+  width: 80vw;
+  margin: 0 auto;
   box-sizing: border-box;
 }
 
-.services-carousel::-webkit-scrollbar {
-  display: none; /* WebKit browsers (Chrome, Safari, Edge) */
-}
-
 .services-track {
-  display: flex;
-  align-items: stretch;
-  width: max-content;
-  gap: 2rem;
-  flex-wrap: nowrap;
-  padding-right: 10rem; /* Increased right padding to ensure last card is fully visible */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  width: 100%;
 }
 
 .service-item {
-  flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.05);
   border-radius: 15px;
-  padding: 2rem;
-  backdrop-filter: blur(10px);
-  min-width: 300px;
-  max-width: 350px;
-  min-height: 400px;
+  padding: 0;
+  min-height: 420px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  position: relative;
+  border: 1px solid rgba(174, 143, 71, 0.15);
+  background-color: black;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.service-item::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 16px;
+  padding: 1px;
+  background: conic-gradient(from var(--border-angle-1), transparent 60%, rgba(174, 143, 71, 0.5) 75%, #ae8f47 80%, rgba(174, 143, 71, 0.5) 85%, transparent 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: border-shimmer-1 8s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.service-item:nth-child(2)::before {
+  animation-name: border-shimmer-2;
+}
+.service-item:nth-child(3)::before {
+  animation-name: border-shimmer-3;
+}
+.service-item:nth-child(4)::before {
+  animation-name: border-shimmer-4;
+}
+
+.service-item-content {
+  position: relative;
+  z-index: 1;
+  padding: 2.5rem 2rem;
+  margin-top: auto;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 60%, transparent 100%);
+  border-radius: 0 0 15px 15px;
 }
 
 .service-item h3 {
@@ -718,18 +777,71 @@ body::-webkit-scrollbar {
   font-weight: bold;
   font-size: 1.3rem;
   color: white;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   letter-spacing: 1px;
 }
 
 .service-item p {
   font-family: Georgia, serif;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.5;
-  margin: 0;
-  max-width: 90vw;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
   box-sizing: border-box;
+}
+
+.service-cta {
+  background: transparent;
+  border: 1px solid rgba(174, 143, 71, 0.4);
+  color: #ae8f47;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  letter-spacing: 0.5px;
+}
+
+.service-cta:hover {
+  background: rgba(174, 143, 71, 0.15);
+  border-color: #ae8f47;
+}
+
+.services-section-cta {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4rem;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+.services-cta-text {
+  font-family: Georgia, serif;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 1.5rem;
+}
+
+.services-cta-button {
+  background: transparent;
+  border: 1px solid #ae8f47;
+  color: #ae8f47;
+  padding: 1rem 2.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+}
+
+.services-cta-button:hover {
+  background: rgba(174, 143, 71, 0.15);
+  box-shadow: 0 4px 20px rgba(174, 143, 71, 0.2);
 }
 
 
@@ -750,6 +862,9 @@ body::-webkit-scrollbar {
   color: white;
   margin-bottom: 0rem;
   letter-spacing: 2px;
+  border-bottom: 2px solid rgba(174, 143, 71, 0.4);
+  padding-bottom: 0.5rem;
+  display: inline-block;
 }
 
 .contact-content {
@@ -830,8 +945,8 @@ body::-webkit-scrollbar {
 
 .contact-submit {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
+  border: 1px solid #ae8f47;
+  color: #ae8f47;
   padding: 1rem 2rem;
   border-radius: 25px;
   cursor: pointer;
@@ -841,35 +956,80 @@ body::-webkit-scrollbar {
   backdrop-filter: blur(10px);
   align-self: center;
   margin-top: 1rem;
+  letter-spacing: 0.5px;
 }
 
 .contact-submit:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(174, 143, 71, 0.15);
+  border-color: #ae8f47;
   transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(174, 143, 71, 0.2);
 }
 
 /* Responsive adjustments for new sections */
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
   .services-heading,
   .contact-heading {
     font-size: 2rem;
     margin-bottom: 0rem;
   }
-  
-  .service-item {
-    min-width: 250px;
-    max-width: 280px;
-    min-height: 360px;
-    padding: 1.5rem;
+
+  .services-heading {
+    width: 90vw;
   }
-  
+
+  .services-description {
+    width: 90vw;
+  }
+
+  .services-carousel {
+    width: 90vw;
+  }
+
+  .services-track {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .service-item {
+    min-height: auto;
+    flex-direction: row;
+    align-items: stretch;
+    background-position: left center;
+    background-size: 30% 100%;
+  }
+
+  .service-item-content {
+    padding: 1.5rem 2rem;
+    margin-top: 0;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.95) 20%, black 40%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    margin-left: auto;
+  }
+
   .service-item h3 {
     font-size: 1.1rem;
+    margin-bottom: 0;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
-  
+
   .service-item p {
     font-size: 0.9rem;
+    margin-bottom: 0;
+    flex: 1;
+  }
+
+  .service-cta {
+    flex-shrink: 0;
+  }
+
+  .services-section-cta {
+    margin-top: 3rem;
   }
   
   .contact-email {
@@ -906,19 +1066,44 @@ body::-webkit-scrollbar {
     margin-bottom: 1.5rem;
   }
   
-  .service-item {
-    min-width: 200px;
-    max-width: 250px;
-    min-height: 320px;
-    padding: 1rem;
+  .services-heading {
+    width: 92vw;
   }
-  
+
+  .services-carousel {
+    width: 92vw;
+  }
+
+  .services-track {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .service-item {
+    min-height: auto;
+    padding: 1.2rem 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
   .service-item h3 {
     font-size: 1rem;
+    margin-bottom: 0.25rem;
   }
-  
+
   .service-item p {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    margin-bottom: 0;
+  }
+
+  .services-cta-text {
+    font-size: 0.95rem;
+  }
+
+  .services-cta-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
   }
   
   .contact-email {

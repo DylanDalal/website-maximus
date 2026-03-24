@@ -65,6 +65,34 @@ export default function App() {
           >
             Portfolio
           </Link>
+          <button
+            className="navbar-link"
+            onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
+            style={{
+              background: 'transparent',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              color: 'white',
+              padding: '0.5rem 1.5rem',
+              borderRadius: '25px',
+              cursor: 'pointer',
+              fontFamily: 'Georgia, serif',
+              fontSize: '0.9rem',
+              transition: 'all 0.3s ease',
+              backdropFilter: 'blur(10px)',
+              textDecoration: 'none',
+              display: 'inline-block'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.background = 'rgba(255, 255, 255, 0.1)';
+              e.target.style.borderColor = 'rgba(255, 255, 255, 0.5)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = 'transparent';
+              e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+            }}
+          >
+            Contact
+          </button>
         </div>
       </nav>
       <div className="app">

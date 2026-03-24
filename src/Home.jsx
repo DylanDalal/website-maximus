@@ -91,16 +91,16 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [videoLoaded]);
 
-  // Time-based fade for the frontmost logo: 5s delay, then 15s fade to 50% opacity
+  // Time-based fade for logo3: 3s delay, then 5s fade to 5% opacity
   useEffect(() => {
     const startTime = Date.now();
     const interval = setInterval(() => {
       const elapsed = Date.now() - startTime;
       setLogoFadeElapsed(elapsed);
-      // Stop updating after total duration (5s delay + 15s fade = 20s)
-      if (elapsed >= 20000) {
+      // Stop updating after total duration (3s delay + 5s fade = 8s)
+      if (elapsed >= 8000) {
         clearInterval(interval);
-        setLogoFadeElapsed(20000);
+        setLogoFadeElapsed(8000);
       }
     }, 100);
 
@@ -117,12 +117,13 @@ export default function Home() {
 
   // Calculate fade values based on scroll position and page load fade-in
   const videoOpacity = Math.max(0, (1 - (scrollY / 300)) * fadeInProgress); // Fade out over 300px, but also respect fade-in
-  const logoFadeDelay = 5000; // 5 second delay before starting logo fade
-  const logoFadeDuration = 15000; // 15 seconds to reach 50% opacity
+  const logoFadeDelay = 3000; // 3 second delay before starting logo fade
+  const logoFadeDuration = 5000; // 5 seconds to reach 5% opacity
   const logoFadeProgress = logoFadeElapsed < logoFadeDelay
     ? 0
     : Math.min(1, (logoFadeElapsed - logoFadeDelay) / logoFadeDuration);
-  const logoFadeFactor = 1 - 0.5 * logoFadeProgress; // 1 -> 0.5 over duration
+  const scrollRestoreFactor = Math.min(1, scrollY / 200); // 0 at top, 1 at 200px scroll
+  const logoFadeFactor = 1 - 0.95 * logoFadeProgress * (1 - scrollRestoreFactor); // fades to 0.05, but restores to 1 on scroll
   const baseLogo2Opacity = 1 - videoOpacity; // Logo2 fades inversely to video
   const logo2Opacity = baseLogo2Opacity * logoFadeFactor; // Apply time-based fade on top
   const scrollTextOpacity = Math.max(0, 1 - (scrollY / 200)); // Fade out over 200px
@@ -263,7 +264,7 @@ export default function Home() {
             left: 0,
             width: "100%",
             height: "30vh",
-            background: "linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1))",
+            background: "linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.5))",
             pointerEvents: "none",
             zIndex: 2
           }} />
@@ -335,7 +336,7 @@ export default function Home() {
             left: 0,
             width: "100%",
             height: "30vh",
-            background: "linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1))",
+            background: "linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.5))",
             pointerEvents: "none",
             zIndex: 3
           }} />
@@ -353,9 +354,9 @@ export default function Home() {
       }}>
         <div className="logo-container">
           <div style={{ position: 'relative', display: 'inline-block', maxWidth: '100%', marginBottom: '10vh', verticalAlign: 'top' }}>
-            <img 
-              src="/Logo3.png" 
-              alt="Logo Base" 
+            <img
+              src="/Logo3.png"
+              alt="Logo Base"
               className="logo"
               style={{
                 position: 'relative',
@@ -364,13 +365,14 @@ export default function Home() {
                 width: '100%',
                 height: 'auto',
                 zIndex: 1,
-                opacity: 1,
+                opacity: logoFadeFactor,
+                transition: 'opacity 0.1s ease-out',
                 blendMode: 'screen'
               }}
             />
-            <img 
-              src="/Logo2.png" 
-              alt="Logo Overlay" 
+            <img
+              src="/Logo2.png"
+              alt="Logo Overlay"
               className="logo logo-overlay"
               style={{
                 position: 'absolute',
@@ -517,48 +519,58 @@ export default function Home() {
             minHeight: '60vh',
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'flex-start',
+            alignItems: 'center',
             padding: '0',
             marginTop: '20vh'
           }}
         >
-        <h2 className="services-heading" style={{ paddingLeft: '8vw' }}>Our Services</h2>
-        <p className="services-description" style={{ paddingLeft: '8vw', paddingRight: '8vw' }}>From concept to completion, we deliver comprehensive video solutions tailored to your brand's unique needs and objectives.</p>
+        <h2 className="services-heading">Our Services</h2>
+        <p className="services-description">We deliver comprehensive video solutions tailored to your brand's unique needs and objectives.</p>
         <div className="services-carousel">
           <div className="services-track">
-            <div className="service-item">
-              <h3>Brand Campaigns</h3>
-              <p>Complete brand storytelling and campaign development</p>
+            <div className="service-item" style={{ backgroundImage: 'url(/thumbnails/lisbeth.gif)' }}>
+              <div className="service-item-content">
+                <h3>Social Media</h3>
+                <p>Scroll-stopping content that turns followers into customers across every platform.</p>
+                <button className="service-cta" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
+                  Start a Project
+                </button>
+              </div>
             </div>
             <div className="service-item">
-              <h3>Social Media Content</h3>
-              <p>Engaging video content for all social platforms</p>
+              <div className="service-item-content">
+                <h3>Tech Startup</h3>
+                <p>Launch videos, product demos, and brand stories that help you stand out and raise the bar.</p>
+                <button className="service-cta" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
+                  Start a Project
+                </button>
+              </div>
             </div>
-            <div className="service-item">
-              <h3>Commercial Production</h3>
-              <p>Professional commercial and promotional videos</p>
+            <div className="service-item" style={{ backgroundImage: 'url(/thumbnails/fmc1.gif)' }}>
+              <div className="service-item-content">
+                <h3>Commercial<br/>Production</h3>
+                <p>High-impact spots built to sell — from concept through final delivery.</p>
+                <button className="service-cta" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
+                  Start a Project
+                </button>
+              </div>
             </div>
-            <div className="service-item">
-              <h3>Event Coverage</h3>
-              <p>Live event documentation and highlight reels</p>
-            </div>
-            <div className="service-item">
-              <h3>Documentary</h3>
-              <p>Compelling documentary and storytelling content</p>
-            </div>
-            <div className="service-item">
-              <h3>Music Videos</h3>
-              <p>Creative music video production and direction</p>
-            </div>
-            <div className="service-item">
-              <h3>Product Launches</h3>
-              <p>Strategic product launch and marketing videos</p>
-            </div>
-            <div className="service-item">
-              <h3>Corporate Videos</h3>
-              <p>Professional corporate communication content</p>
+            <div className="service-item" style={{ backgroundImage: 'url(/thumbnails/ofai.gif)' }}>
+              <div className="service-item-content">
+                <h3>Event Coverage</h3>
+                <p>Capture the energy of your live events and turn them into lasting marketing assets.</p>
+                <button className="service-cta" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
+                  Start a Project
+                </button>
+              </div>
             </div>
           </div>
+        </div>
+        <div className="services-section-cta">
+          <p className="services-cta-text">Not sure what you need? Let's figure it out together.</p>
+          <button className="services-cta-button" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
+            Get in Touch
+          </button>
         </div>
         
         {/* Contact Section */}
