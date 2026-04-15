@@ -288,6 +288,9 @@ body::-webkit-scrollbar {
   color: white;
   margin-bottom: 0rem;
   letter-spacing: 2px;
+  border-bottom: 2px solid rgba(174, 143, 71, 0.4);
+  padding-bottom: 0.5rem;
+  display: inline-block;
 }
 
 .section-description {
@@ -673,6 +676,9 @@ body::-webkit-scrollbar {
   letter-spacing: 2px;
   text-align: left;
   width: 80vw;
+  border-bottom: 2px solid rgba(174, 143, 71, 0.4);
+  padding-bottom: 0.5rem;
+  display: inline-block;
 }
 
 @property --border-angle-1 {
@@ -713,6 +719,7 @@ body::-webkit-scrollbar {
   width: 80vw;
   margin: 0 auto;
   box-sizing: border-box;
+  overflow-y: visible;
 }
 
 .services-track {
@@ -732,9 +739,20 @@ body::-webkit-scrollbar {
   position: relative;
   border: 1px solid rgba(174, 143, 71, 0.15);
   background-color: black;
+  overflow: visible;
+}
+
+.service-item-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  filter: grayscale(1);
+  opacity: 0.5;
+  z-index: 0;
+  overflow: hidden;
 }
 
 .service-item::before {

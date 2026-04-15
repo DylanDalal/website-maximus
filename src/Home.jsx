@@ -72,8 +72,7 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Update elapsed time for fade-in calculation after video loads
-  // Sequence: video loads -> 500ms delay -> 1.5s fade-in
+  // Fade-in after video loads: no delay, 500ms fade-in
   useEffect(() => {
     if (!videoLoaded) return;
 
@@ -81,51 +80,53 @@ export default function Home() {
     const interval = setInterval(() => {
       const elapsed = Date.now() - startTime;
       setElapsedTime(elapsed);
-      // Stop updating after fade-in is complete (50ms delay + 500ms fade-in = 550ms)
-      if (elapsed >= 550) {
+      if (elapsed >= 500) {
         clearInterval(interval);
-        setElapsedTime(550); // Set to max to ensure it stays at 1
+        setElapsedTime(500);
       }
-    }, 16); // ~60fps
-    
+    }, 16);
+
     return () => clearInterval(interval);
   }, [videoLoaded]);
 
-  // Time-based fade for logo3: 3s delay, then 5s fade to 5% opacity
+  // Time-based fade for logos: Logo3 (3s delay, 5s fade to 5%), Logo2 (5s delay, 15s fade to 30%)
   useEffect(() => {
     const startTime = Date.now();
     const interval = setInterval(() => {
       const elapsed = Date.now() - startTime;
       setLogoFadeElapsed(elapsed);
-      // Stop updating after total duration (3s delay + 5s fade = 8s)
-      if (elapsed >= 8000) {
+      // Stop updating after Logo2's full fade completes (5s delay + 15s fade = 20s)
+      if (elapsed >= 20000) {
         clearInterval(interval);
-        setLogoFadeElapsed(8000);
+        setLogoFadeElapsed(20000);
       }
     }, 100);
 
     return () => clearInterval(interval);
   }, []);
 
-  // Calculate fade-in based on elapsed time with reduced delay, then faster fade in
-  // Similar pattern to scroll fade-out: delay first, then fade in
-  const fadeInDelay = 50; // Reduced delay
-  const fadeInDuration = 500; // Reduced fade-in duration for faster appearance
-  const fadeInProgress = elapsedTime < fadeInDelay 
-    ? 0 
-    : Math.min(1, (elapsedTime - fadeInDelay) / fadeInDuration); // Faster fade-in
+  // Video fades in over 500ms after loading (no delay), then fades out on scroll
+  const fadeInProgress = Math.min(1, elapsedTime / 500);
+  const videoOpacity = Math.max(0, (1 - (scrollY / 300)) * fadeInProgress);
 
-  // Calculate fade values based on scroll position and page load fade-in
-  const videoOpacity = Math.max(0, (1 - (scrollY / 300)) * fadeInProgress); // Fade out over 300px, but also respect fade-in
-  const logoFadeDelay = 3000; // 3 second delay before starting logo fade
-  const logoFadeDuration = 5000; // 5 seconds to reach 5% opacity
+  // Logo3 (opaque bg, low z-index): 3s delay, 5s fade to 5% opacity — unchanged
+  const logoFadeDelay = 3000;
+  const logoFadeDuration = 5000;
   const logoFadeProgress = logoFadeElapsed < logoFadeDelay
     ? 0
     : Math.min(1, (logoFadeElapsed - logoFadeDelay) / logoFadeDuration);
-  const scrollRestoreFactor = Math.min(1, scrollY / 200); // 0 at top, 1 at 200px scroll
-  const logoFadeFactor = 1 - 0.95 * logoFadeProgress * (1 - scrollRestoreFactor); // fades to 0.05, but restores to 1 on scroll
-  const baseLogo2Opacity = 1 - videoOpacity; // Logo2 fades inversely to video
-  const logo2Opacity = baseLogo2Opacity * logoFadeFactor; // Apply time-based fade on top
+  const scrollRestoreFactor = Math.min(1, scrollY / 200);
+  const logoFadeFactor = 1 - 0.95 * logoFadeProgress * (1 - scrollRestoreFactor);
+
+  // Logo2 (transparent bg, high z-index): 5s delay, 15s fade to 30% opacity
+  const logo2FadeDelay = 5000;
+  const logo2FadeDuration = 15000;
+  const logo2FadeProgress = logoFadeElapsed < logo2FadeDelay
+    ? 0
+    : Math.min(1, (logoFadeElapsed - logo2FadeDelay) / logo2FadeDuration);
+  const logo2FadeFactor = 1 - 0.7 * logo2FadeProgress * (1 - scrollRestoreFactor);
+  const baseLogo2Opacity = 1 - videoOpacity;
+  const logo2Opacity = baseLogo2Opacity * logo2FadeFactor;
   const scrollTextOpacity = Math.max(0, 1 - (scrollY / 200)); // Fade out over 200px
   
   // Calculate ticker visibility based on scroll position
@@ -225,24 +226,22 @@ export default function Home() {
       
       {/* First Light Ray Layer - Background */}
       <div style={{
-        position: "absolute", 
-        top: 0, 
-        left: 0, 
-        width: "100vw", 
-        height: "230vh", 
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "230vh",
         zIndex: 1,
         maxWidth: "100vw",
-        overflow: "hidden"
       }}>
         <div style={{
-          position: "sticky", 
-          top: 0, 
-          left: 0, 
-          width: "100vw", 
-          height: "100vh", 
+          position: "sticky",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "110vh",
           zIndex: 1,
           maxWidth: "100vw",
-          overflow: "hidden"
         }}>
           <LightRays
             raysOrigin="top-left"
@@ -309,11 +308,11 @@ export default function Home() {
         zIndex: 2
       }}>
         <div style={{
-          position: "sticky", 
-          top: 0, 
-          left: 0, 
-          width: "100%", 
-          height: "100vh", 
+          position: "sticky",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "110vh",
           zIndex: 2
         }}>
           <LightRays
@@ -367,7 +366,7 @@ export default function Home() {
                 zIndex: 1,
                 opacity: logoFadeFactor,
                 transition: 'opacity 0.1s ease-out',
-                blendMode: 'screen'
+                mixBlendMode: 'screen'
               }}
             />
             <img
@@ -524,14 +523,15 @@ export default function Home() {
             marginTop: '20vh'
           }}
         >
-        <h2 className="services-heading">Our Services</h2>
-        <p className="services-description">We deliver comprehensive video solutions tailored to your brand's unique needs and objectives.</p>
+        <h2 className="services-heading">What We Make</h2>
+        <p className="services-description">From platforms to premiere nights — built to move people and move product.</p>
         <div className="services-carousel">
           <div className="services-track">
-            <div className="service-item" style={{ backgroundImage: 'url(/thumbnails/lisbeth.gif)' }}>
+            <div className="service-item">
+              <div className="service-item-bg" style={{ backgroundImage: 'url(/thumbnails/lisbeth.gif)' }} />
               <div className="service-item-content">
-                <h3>Social Media</h3>
-                <p>Scroll-stopping content that turns followers into customers across every platform.</p>
+                <h3>Social Content</h3>
+                <p>Short-form video built for the scroll, designed to stop thumbs and grow your audience.</p>
                 <button className="service-cta" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
                   Start a Project
                 </button>
@@ -539,38 +539,34 @@ export default function Home() {
             </div>
             <div className="service-item">
               <div className="service-item-content">
-                <h3>Tech Startup</h3>
-                <p>Launch videos, product demos, and brand stories that help you stand out and raise the bar.</p>
+                <h3>Product Videos</h3>
+                <p>Cinematic visuals that show your product at its best, built for the moments that close a sale.</p>
                 <button className="service-cta" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
                   Start a Project
                 </button>
               </div>
             </div>
-            <div className="service-item" style={{ backgroundImage: 'url(/thumbnails/fmc1.gif)' }}>
+            <div className="service-item">
+              <div className="service-item-bg" style={{ backgroundImage: 'url(/thumbnails/fmc1.gif)' }} />
               <div className="service-item-content">
-                <h3>Commercial<br/>Production</h3>
-                <p>High-impact spots built to sell — from concept through final delivery.</p>
+                <h3>Advertisements</h3>
+                <p>High-impact spots crafted to convert, from concept through final delivery.</p>
                 <button className="service-cta" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
                   Start a Project
                 </button>
               </div>
             </div>
-            <div className="service-item" style={{ backgroundImage: 'url(/thumbnails/ofai.gif)' }}>
+            <div className="service-item">
+              <div className="service-item-bg" style={{ backgroundImage: 'url(/thumbnails/ofai.gif)' }} />
               <div className="service-item-content">
-                <h3>Event Coverage</h3>
-                <p>Capture the energy of your live events and turn them into lasting marketing assets.</p>
+                <h3>Concert Films</h3>
+                <p>Multi-camera live productions edited as a film worth watching on its own.</p>
                 <button className="service-cta" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
                   Start a Project
                 </button>
               </div>
             </div>
           </div>
-        </div>
-        <div className="services-section-cta">
-          <p className="services-cta-text">Not sure what you need? Let's figure it out together.</p>
-          <button className="services-cta-button" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
-            Get in Touch
-          </button>
         </div>
         
         {/* Contact Section */}
