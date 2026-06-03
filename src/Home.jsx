@@ -21,7 +21,9 @@ export default function Home() {
     '/clientlogo_jp.png': 'https://www.jacksonproperties.com',
     '/clientlogo_fc.png': 'https://www.floridacavernsrvresort.com',
     '/clientlogo_lisbeth.png': 'https://www.etsy.com/shop/LisBETHSilk',
-    '/clientlogo_fmc.png': 'https://www.fendermarine.com/'
+    '/clientlogo_fmc.png': 'https://www.fendermarine.com/',
+    '/clientlogo_cohort.png': 'https://www.instagram.com/thecohortnyc/',
+    '/clientlogo_owez.png': 'https://www.instagram.com/owez/'
   };
 
   // Helper function to render a ticker item
@@ -53,10 +55,12 @@ export default function Home() {
   const tickerLogos = [
     '/clientlogo_airtab.png',
     '/clientlogo_clip.png',
+    '/clientlogo_cohort.png',
     '/clientlogo_fc.png',
     '/clientlogo_fmc.png',
     '/clientlogo_jp.png',
     '/clientlogo_ofai.png',
+    '/clientlogo_owez.png',
     '/clientlogo_lisbeth.png',
     '/clientlogo_tipt.webp',
     '/clientlogo_flg.png'
@@ -163,11 +167,11 @@ export default function Home() {
     },
     {
       id: 4,
-      title: "Social Media - Lifestyle Brand",
+      title: "Cohort - 5 Spots Left",
       thumbnail: "/thumbnails/916.png",
       videoUrl: "https://www.youtube.com/embed/nVObwK_ISG8",
       aspectRatio: "vertical",
-      category: "Ad"
+      category: "Promo Reel"
     },
     {
       id: 5,

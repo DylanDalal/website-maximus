@@ -36,7 +36,7 @@ export default function Portfolio() {
     { id: 21, title: "Ad 1", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/qQgWRWEiCQM", aspectRatio: "horizontal", category: "Ad" },
     { id: 22, title: "Ad 2", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/briKVzcxssA", aspectRatio: "horizontal", category: "Ad" },
     { id: 23, title: "Ad 3", thumbnail: "/thumbnails/169.png", videoUrl: "https://www.youtube.com/embed/4hzdqTxiRss", aspectRatio: "horizontal", category: "Ad" },
-    { id: 24, title: "Ad Short 1", thumbnail: "/thumbnails/916.png", videoUrl: "https://www.youtube.com/embed/nVObwK_ISG8", aspectRatio: "vertical", category: "Ad" },
+    { id: 24, title: "Cohort - 5 Spots Left", thumbnail: "/thumbnails/916.png", videoUrl: "https://www.youtube.com/embed/nVObwK_ISG8", aspectRatio: "vertical", category: "Promo Reel" },
     { id: 25, title: "Ad Short 2", thumbnail: "/thumbnails/916.png", videoUrl: "https://www.youtube.com/embed/7MTAqe8iidg", aspectRatio: "vertical", category: "Ad" },
     { id: 26, title: "Ad Short 3", thumbnail: "/thumbnails/916.png", videoUrl: "https://www.youtube.com/embed/ERql6lur9yQ", aspectRatio: "vertical", category: "Ad" },
     { id: 27, title: "Ad Short 4", thumbnail: "/thumbnails/916.png", videoUrl: "https://www.youtube.com/embed/Bhq3JjhCG-k", aspectRatio: "vertical", category: "Ad" },
